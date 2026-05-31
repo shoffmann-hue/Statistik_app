@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Türen Aufmaß">
+<title>Türen Aufmaß Statistik</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiB2aWV3Qm94PSIwIDAgMTgwIDE4MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJiZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBhMTkyOSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzBkMjEzNyIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHdpZHRoPSIxODAiIGhlaWdodD0iMTgwIiByeD0iMzYiIGZpbGw9InVybCgjYmcpIi8+PHJlY3QgeD0iNDIiIHk9IjI4IiB3aWR0aD0iOTYiIGhlaWdodD0iMTI0IiByeD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRThDODRBIiBzdHJva2Utd2lkdGg9IjUiLz48cmVjdCB4PSI1NCIgeT0iNDAiIHdpZHRoPSI3MiIgaGVpZ2h0PSI0NCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U4Qzg0QSIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIwLjYiLz48cmVjdCB4PSI1NCIgeT0iOTIiIHdpZHRoPSI3MiIgaGVpZ2h0PSI0OCIgcng9IjMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U4Qzg0QSIgc3Ryb2tlLXdpZHRoPSIzIiBvcGFjaXR5PSIwLjYiLz48Y2lyY2xlIGN4PSIxMTgiIGN5PSIxMTgiIHI9IjUiIGZpbGw9IiNFOEM4NEEiLz48bGluZSB4MT0iMTE4IiB5MT0iMTIzIiB4Mj0iMTE4IiB5Mj0iMTMzIiBzdHJva2U9IiNFOEM4NEEiIHN0cm9rZS13aWR0aD0iMy41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMzAiIHkxPSIxNTIiIHgyPSIxNTAiIHkyPSIxNTIiIHN0cm9rZT0iI0U4Qzg0QSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:linear-gradient(135deg,#0a1929 0%,#0d2137 50%,#091520 100%);
+  color:#e8f4f8;font-family:'Trebuchet MS',Arial,sans-serif;min-height:100vh;
+  padding:24px 14px 60px;max-width:740px;margin:0 auto}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(20px,6vw,32px);letter-spacing:1px}
+.eyebrow{color:#E8C84A;font-size:10px;letter-spacing:5px;text-transform:uppercase;margin-bottom:6px}
+.sub{color:#7a9ab0;font-size:11px;margin-bottom:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.karte{background:rgba(255,255,255,.04);border-radius:10px;padding:11px 8px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.karte .lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#506070;margin-bottom:3px}
+.karte .big{font-family:Georgia,serif;font-size:18px;font-weight:700}
+.karte .cnt{font-size:10px;color:#7a9ab0;margin-top:2px}
+.sum-grid{display:grid;gap:7px;margin-bottom:12px}
+.sum-card{background:rgba(255,255,255,.04);border-radius:10px;padding:9px 5px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.sum-card .big2{font-family:Georgia,serif;font-size:17px;font-weight:700}
+.sum-card .m{font-size:9px;color:#a0b8c8;margin-top:2px}
+.sum-card .g{font-size:10px;font-weight:600;color:#E8C84A;margin-top:3px}
+.sum-card .s{font-size:8px;color:#506070}
+.sum-card .la{font-size:8px;color:#E8C84A99;border-top:1px solid rgba(232,200,74,.2);margin-top:2px;padding-top:2px}
+.tgl-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:14px}
+.tgl{display:flex;background:rgba(255,255,255,.06);border-radius:8px;padding:3px;border:1px solid rgba(255,255,255,.1)}
+.tgl button{padding:7px 14px;border-radius:6px;border:none;cursor:pointer;font-size:11px;font-weight:600;
+  letter-spacing:1px;text-transform:uppercase;background:transparent;color:#7a9ab0;
+  font-family:'Trebuchet MS',Arial,sans-serif;transition:background .15s,color .15s}
+.jahr-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.jahr-btn{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;
+  font-family:'Trebuchet MS',Arial,sans-serif;border:1px solid rgba(255,255,255,.15);
+  background:transparent;color:#7a9ab0;transition:all .15s}
+.chart-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:18px 8px 12px;margin-bottom:14px}
+.la-banner{background:rgba(232,200,74,.07);border:1px solid rgba(232,200,74,.25);border-radius:10px;
+  padding:9px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px;font-size:11px;color:#c8a830}
+.formula{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:10px;
+  padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;font-size:10px;color:#405060;margin-bottom:16px}
+.toggle-link{background:none;border:none;cursor:pointer;color:#506070;font-size:11px;
+  letter-spacing:1px;text-transform:uppercase;padding:4px 0;display:block;
+  font-family:'Trebuchet MS',Arial,sans-serif;margin-bottom:8px}
+.list-wrap{display:none;flex-direction:column;gap:4px;max-height:220px;overflow-y:auto;margin-bottom:12px}
+.list-item{display:flex;justify-content:space-between;align-items:center;
+  background:rgba(255,255,255,.03);border-radius:7px;padding:6px 10px;border:1px solid rgba(255,255,255,.07)}
+.list-item .name{color:#a0b8c8;font-size:11px}
+.list-item .cnt2{color:#506070;font-size:10px;margin-left:6px}
+.rm-btn{background:rgba(255,80,80,.15);border:1px solid rgba(255,80,80,.3);color:#f08080;
+  border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;font-family:inherit;flex-shrink:0}
+/* Upload */
+.upload-box{border:2px dashed rgba(232,200,74,.3);border-radius:12px;padding:16px;
+  text-align:center;cursor:pointer;background:rgba(255,255,255,.02);margin-bottom:8px;transition:background .2s}
+.upload-box:active{background:rgba(232,200,74,.08)}
+.upload-box .icon{font-size:22px;color:#E8C84A;margin-bottom:3px}
+.upload-box p{color:#7a9ab0;font-size:13px;margin:0}
+.upload-box small{color:#405060;font-size:11px}
+.msg{text-align:center;font-size:13px;padding:4px 0;min-height:22px}
+/* API Key */
+.api-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.api-section input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:9px 12px;color:#e8f4f8;font-size:12px;outline:none;font-family:inherit;margin-top:6px}
+.api-row{display:flex;gap:8px;margin-top:6px}
+.api-row input{flex:1}
+.save-btn{background:rgba(232,200,74,.15);border:1px solid rgba(232,200,74,.3);color:#E8C84A;
+  border-radius:8px;padding:9px 14px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap}
+/* Jahresabschluss */
+.abschluss-box{background:rgba(232,200,74,.05);border:1px solid rgba(232,200,74,.2);
+  border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.abschluss-btn{background:rgba(232,200,74,.2);border:1px solid rgba(232,200,74,.4);color:#E8C84A;
+  border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.print-btn{background:rgba(74,124,142,.2);border:1px solid rgba(74,124,142,.4);color:#7FA99B;
+  border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+input[type=file]{display:none}
+@media print{
+  .no-print{display:none!important}
+  body{background:white;color:black;padding:20px}
+  .karte,.sum-card{border:1px solid #ccc}
+  .chart-wrap{border:1px solid #ccc}
+}
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <p class="eyebrow">Aufmaß · Türenstatistik</p>
+  <h1>Türblätter & Türfutter</h1>
+  <p class="sub" id="subtxt">Lade Daten…</p>
+
+  <!-- API Key -->
+  <div class="api-section" id="api-section" style="display:none">
+    <p style="font-size:11px;color:#7a9ab0">🔑 Anthropic API-Key eingeben (einmalig, wird sicher auf dem Server gespeichert)</p>
+    <div class="api-row">
+      <input type="password" id="apikey-input" placeholder="sk-ant-api03-…">
+      <button class="save-btn" onclick="saveApiKey()">Speichern</button>
+    </div>
+  </div>
+  <p id="api-ok" style="display:none;font-size:11px;color:#7fc47f;margin-bottom:12px">✅ API-Key gespeichert — PDF-Upload aktiv</p>
+
+  <!-- Upload -->
+  <div class="upload-box no-print" onclick="document.getElementById('pdfin').click()" id="upbox">
+    <div class="icon">＋</div>
+    <p>Neues Aufmaß-PDF hochladen</p>
+    <small>Claude liest es automatisch aus & addiert zur Statistik</small>
+  </div>
+  <input type="file" id="pdfin" accept=".pdf" onchange="handleUpload(this)">
+  <p class="msg" id="upmsg"></p>
+
+  <!-- Jahr-Auswahl -->
+  <div class="jahr-row" id="jahr-row"></div>
+
+  <!-- Jahresabschluss -->
+  <div class="abschluss-box no-print" id="abschluss-box">
+    <span style="font-size:11px;color:#c8a830">📅 Jahresabschluss durchführen & neues Jahr beginnen</span>
+    <div style="display:flex;gap:8px">
+      <button class="print-btn" onclick="drucken()">🖨️ Bericht drucken</button>
+      <button class="abschluss-btn" onclick="jahresabschluss()">Abschluss</button>
+    </div>
+  </div>
+
+  <!-- Aufmaß-Liste -->
+  <button class="toggle-link no-print" id="list-btn" onclick="toggleList()">▼ Aufmaßblätter</button>
+  <div class="list-wrap no-print" id="list-wrap"></div>
+</div>
+
+<!-- Gesamt-Karten -->
+<div class="grid3" id="total-cards"></div>
+
+<!-- Tab -->
+<div class="tgl-row no-print">
+  <div class="tgl">
+    <button id="tab-blatt" onclick="setTab('blatt')">Türblätter</button>
+    <button id="tab-futter" onclick="setTab('futter')">Türfutter</button>
+  </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="sum-grid" id="sum-cards"></div>
+
+<!-- LA Banner -->
+<div class="la-banner" id="la-banner" style="display:none">
+  🪟 <span id="la-text"></span>
+</div>
+
+<!-- Chart Controls -->
+<div class="tgl-row no-print">
+  <div class="tgl">
+    <button id="ct-bar" onclick="setChart('bar')">Balken</button>
+    <button id="ct-pie" onclick="setChart('pie')">Kreis</button>
+  </div>
+  <div class="tgl">
+    <button id="mt-anz" onclick="setMetric('anzahl')">Anzahl</button>
+    <button id="mt-gew" onclick="setMetric('gewicht')">Gewicht</button>
+  </div>
+</div>
+
+<!-- Chart -->
+<div class="chart-wrap">
+  <canvas id="myChart"></canvas>
+  <p id="no-data" style="display:none;text-align:center;padding:40px;color:#405060;font-size:13px">Keine Daten</p>
+</div>
+
+<!-- Formel -->
+<div class="formula">
+  <span>📐 Türblatt: B × 1,985m × 14 kg/m²</span>
+  <span>🪟 LA: 860mm+7,6kg · 735mm+5,8kg</span>
+  <span>📐 Futter: 0,012064 × B(cm) × T(cm)</span>
+</div>
+
+<script>
+const H=198.5,KS=14,KF=16.6/(86*16);
+const LA={860:7.6,735:5.8};
+const ACCENT="#E8C84A";
+const CB=["#B5C4B1","#7FA99B","#4A7C8E","#2A5A6E","#1B3A52","#0F2438"];
+const CF=["#C49A6C","#A07040","#7A5030","#502A10","#9B6040","#6B4020","#D4B080","#B89060"];
+const ORDER=[610,625,735,750,760,810,860,985,1010];
+
+let alleAufmasse=[], jahre=[], aktuellesJahr=null, angezeigteJahrId=null;
+let tab="blatt", chartT="bar", metric="anzahl", listOpen=false, myChart=null;
+
+// ── Daten laden ───────────────────────────────────────────────────────────────
+async function laden(){
+  try{
+    const r=await fetch('/api/aufmasse');
+    const d=await r.json();
+    alleAufmasse=d.aufmasse||[];
+    jahre=d.jahre||[];
+    aktuellesJahr=d.aktuellesJahr;
+    angezeigteJahrId=aktuellesJahr?.id||null;
+
+    // API Key Status
+    const ks=await fetch('/api/settings/apikey/status');
+    const kd=await ks.json();
+    if(kd.vorhanden){
+      document.getElementById('api-section').style.display='none';
+      document.getElementById('api-ok').style.display='block';
+    }else{
+      document.getElementById('api-section').style.display='block';
+      document.getElementById('api-ok').style.display='none';
+    }
+
+    render();
+  }catch(e){
+    document.getElementById('subtxt').textContent='Verbindungsfehler zum Server';
+  }
+}
+
+// ── API Key speichern ─────────────────────────────────────────────────────────
+async function saveApiKey(){
+  const key=document.getElementById('apikey-input').value.trim();
+  if(!key)return;
+  const r=await fetch('/api/settings/apikey',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({apikey:key})});
+  if(r.ok){
+    document.getElementById('api-section').style.display='none';
+    document.getElementById('api-ok').style.display='block';
+  }
+}
+
+// ── PDF Upload ────────────────────────────────────────────────────────────────
+async function handleUpload(inp){
+  const file=inp.files[0]; if(!file)return;
+  const msg=document.getElementById('upmsg');
+  msg.style.color=ACCENT; msg.textContent='📄 "'+file.name+'" wird hochgeladen…';
+  document.getElementById('upbox').style.pointerEvents='none';
+  try{
+    const fd=new FormData(); fd.append('pdf',file);
+    msg.textContent='🤖 Claude analysiert das Aufmaßblatt…';
+    const r=await fetch('/api/upload',{method:'POST',body:fd});
+    const d=await r.json();
+    if(d.error)throw new Error(d.error);
+    msg.style.color='#7fc47f';
+    msg.textContent='✅ "'+d.quelle+'" hinzugefügt! ('+d.blaetter+' Blätter, '+d.futter+' Futter)';
+    setTimeout(()=>msg.textContent='',5000);
+    await laden();
+  }catch(e){
+    msg.style.color='#f08080'; msg.textContent='❌ '+e.message;
+    setTimeout(()=>msg.textContent='',5000);
+  }
+  document.getElementById('upbox').style.pointerEvents='';
+  inp.value='';
+}
+
+// ── Aufmaß löschen ────────────────────────────────────────────────────────────
+async function loeschen(id){
+  if(!confirm('Diesen Eintrag wirklich löschen?'))return;
+  await fetch('/api/aufmasse/'+id,{method:'DELETE'});
+  await laden();
+}
+
+// ── Jahresabschluss ───────────────────────────────────────────────────────────
+async function jahresabschluss(){
+  if(!confirm('Jahresabschluss durchführen?\n\nDas aktuelle Jahr wird archiviert und ein neues Jahr beginnt. Alle Daten bleiben erhalten.'))return;
+  const r=await fetch('/api/jahresabschluss',{method:'POST'});
+  const d=await r.json();
+  if(d.ok){
+    alert('✅ Jahr '+d.archiviert+' wurde archiviert.\nNeues Jahr '+d.neuesJahr+' beginnt jetzt.');
+    await laden();
+  }
+}
+
+// ── Drucken ───────────────────────────────────────────────────────────────────
+function drucken(){ window.print(); }
+
+// ── Jahr wechseln ─────────────────────────────────────────────────────────────
+async function jahrWechseln(jahrId){
+  if(jahrId===aktuellesJahr?.id){
+    alleAufmasse=(await(await fetch('/api/aufmasse')).json()).aufmasse||[];
+  }else{
+    const d=await(await fetch('/api/aufmasse/jahr/'+jahrId)).json();
+    alleAufmasse=d.aufmasse||[];
+  }
+  angezeigteJahrId=jahrId;
+  render();
+}
+
+// ── Berechnungen ──────────────────────────────────────────────────────────────
+function cB(d){
+  const w=(d.breite/100)*(H/100)*KS,la=(LA[Math.round(d.breite*10)]||0)*(d.la||0);
+  return{...d,wE:+w.toFixed(2),wG:+(w*d.anzahl+la).toFixed(2),laG:+la.toFixed(2)};
+}
+function cF(d){const w=+(KF*d.breite*d.tiefe).toFixed(2);return{...d,wE:w,wG:+(w*d.anzahl).toFixed(2),laG:0};}
+function srt(a,b){const ai=ORDER.indexOf(Math.round(a.breite*10)),bi=ORDER.indexOf(Math.round(b.breite*10));return(ai<0?99:ai)-(bi<0?99:bi);}
+
+function merge(list){
+  const bm={},fm={};
+  for(const a of list){
+    for(const b of(a.blaetter||[])){
+      if(!bm[b.maß])bm[b.maß]={maß:b.maß,breite:b.breite,anzahl:0,la:0,räume:[]};
+      bm[b.maß].anzahl+=b.anzahl; bm[b.maß].la+=(b.la||0);
+      bm[b.maß].räume.push(...(b.räume||[]).map(r=>r+' ('+a.quelle+')'));
+    }
+    for(const f of(a.futter||[])){
+      if(!fm[f.maß])fm[f.maß]={maß:f.maß,breite:f.breite,tiefe:f.tiefe,anzahl:0,räume:[]};
+      fm[f.maß].anzahl+=f.anzahl;
+      fm[f.maß].räume.push(...(f.räume||[]).map(r=>r+' ('+a.quelle+')'));
+    }
+  }
+  return{bl:Object.values(bm).sort(srt).map(cB),fu:Object.values(fm).sort(srt).map(cF)};
+}
+
+// ── Render ────────────────────────────────────────────────────────────────────
+function render(){
+  const {bl,fu}=merge(alleAufmasse);
+  const tB=bl.reduce((s,d)=>s+d.anzahl,0), tF=fu.reduce((s,d)=>s+d.anzahl,0);
+  const wB=+bl.reduce((s,d)=>s+d.wG,0).toFixed(2), wF=+fu.reduce((s,d)=>s+d.wG,0).toFixed(2);
+  const wG=+(wB+wF).toFixed(2), wLA=+bl.reduce((s,d)=>s+d.laG,0).toFixed(2);
+  const tLA=bl.reduce((s,d)=>s+(d.la||0),0);
+  const active=tab==="blatt"?bl:fu, colors=tab==="blatt"?CB:CF;
+  const jahrLabel=jahre.find(j=>j.id===angezeigteJahrId)?.jahr||'–';
+
+  document.getElementById('subtxt').textContent=alleAufmasse.length+' Aufmaßblätter · Jahr '+jahrLabel+' · H 1985mm · 14kg/m²';
+
+  // Jahr-Buttons
+  const jr=document.getElementById('jahr-row');
+  jr.innerHTML=jahre.map(j=>{
+    const ac=j.id===angezeigteJahrId;
+    return`<button class="jahr-btn" onclick="jahrWechseln(${j.id})" style="
+      border-color:${ac?ACCENT:'rgba(255,255,255,.15)'};
+      background:${ac?ACCENT+'22':'transparent'};
+      color:${ac?ACCENT:'#7a9ab0'}">${j.jahr}${!j.archiviert?' ●':''}</button>`;
+  }).join('');
+
+  // Gesamt-Karten
+  document.getElementById('total-cards').innerHTML=[
+    {lbl:"Türblätter",kg:wB,cnt:tB+" Stück"+(tLA>0?" · "+tLA+"× LA":""),col:CB[2]},
+    {lbl:"Türfutter",kg:wF,cnt:tF+" Stück",col:CF[0]},
+    {lbl:"Gesamt",kg:wG,cnt:(tB+tF)+" Positionen",col:ACCENT},
+  ].map(k=>`<div class="karte" style="border-color:${k.col}30">
+    <div class="lbl">${k.lbl}</div>
+    <div class="big" style="color:${k.col}">${k.kg} kg</div>
+    <div class="cnt">${k.cnt}</div>
+  </div>`).join('');
+
+  // Liste
+  document.getElementById('list-btn').textContent=(listOpen?'▲':'▼')+' '+alleAufmasse.length+' Aufmaßblätter';
+  const isAktiv=angezeigteJahrId===aktuellesJahr?.id;
+  document.getElementById('list-wrap').innerHTML=alleAufmasse.map(a=>{
+    const nb=(a.blaetter||[]).reduce((s,d)=>s+d.anzahl,0);
+    const nf=(a.futter||[]).reduce((s,d)=>s+d.anzahl,0);
+    return`<div class="list-item">
+      <div><span class="name">${a.quelle}</span><span class="cnt2">${nb} Blatt${nf>0?' · '+nf+' Futter':''}</span></div>
+      ${isAktiv?`<button class="rm-btn" onclick="loeschen(${a.id})">✕</button>`:'<span style="color:#304050;font-size:10px">Archiv</span>'}
+    </div>`;
+  }).join('');
+
+  // Tab Buttons
+  document.getElementById('tab-blatt').style.background=tab==='blatt'?CB[2]:'transparent';
+  document.getElementById('tab-blatt').style.color=tab==='blatt'?'#e8f4f8':'#7a9ab0';
+  document.getElementById('tab-futter').style.background=tab==='futter'?CF[0]:'transparent';
+  document.getElementById('tab-futter').style.color=tab==='futter'?'#e8f4f8':'#7a9ab0';
+
+  // Chart Buttons
+  ['bar','pie'].forEach(v=>{const b=document.getElementById('ct-'+v),ac=chartT===v;b.style.background=ac?ACCENT:'transparent';b.style.color=ac?'#0a1929':'#7a9ab0';});
+  ['anz','gew'].forEach((v,i)=>{const b=document.getElementById('mt-'+v),ac=(i===0&&metric==='anzahl')||(i===1&&metric==='gewicht');b.style.background=ac?'#4A7C8E':'transparent';b.style.color=ac?'#e8f4f8':'#7a9ab0';});
+
+  // Summary Cards
+  const sc=document.getElementById('sum-cards');
+  sc.style.gridTemplateColumns=`repeat(${Math.min(Math.max(active.length,1),5)},1fr)`;
+  sc.innerHTML=active.length===0
+    ?`<div class="sum-card"><span style="color:#506070;font-size:12px">Keine Daten</span></div>`
+    :active.map((d,i)=>`<div class="sum-card" style="border-color:${colors[i%colors.length]}50">
+        <div class="big2" style="color:${colors[i%colors.length]}">${d.anzahl}×</div>
+        <div class="m">${d.maß}</div>
+        ${d.tiefe?`<div class="m">T ${d.tiefe}cm</div>`:''}
+        <div class="g">${d.wG} kg</div>
+        <div class="s">${d.wE} kg/Stk.</div>
+        ${d.la>0?`<div class="la">${d.la}× LA +${d.laG} kg</div>`:''}
+      </div>`).join('');
+
+  // LA Banner
+  const lab=document.getElementById('la-banner');
+  if(tab==='blatt'&&tLA>0){lab.style.display='flex';document.getElementById('la-text').textContent=tLA+' Lichtausschnitt'+(tLA>1?'e':'')+' · Zusatz gesamt +'+wLA+' kg';}
+  else{lab.style.display='none';}
+
+  // Jahresabschluss-Box nur für aktives Jahr
+  document.getElementById('abschluss-box').style.display=isAktiv?'flex':'none';
+
+  // Chart
+  renderChart(active,colors);
+}
+
+function renderChart(active,colors){
+  const canvas=document.getElementById('myChart'), noData=document.getElementById('no-data');
+  if(myChart){myChart.destroy();myChart=null;}
+  if(active.length===0){canvas.style.display='none';noData.style.display='block';return;}
+  canvas.style.display='block';noData.style.display='none';
+  const labels=active.map(d=>d.maß), bg=active.map((_,i)=>colors[i%colors.length]);
+  if(chartT==='bar'){
+    myChart=new Chart(canvas,{type:'bar',data:{labels,datasets:[
+      {label:'Anzahl',data:active.map(d=>d.anzahl),backgroundColor:bg,borderRadius:6,yAxisID:'y'},
+      {label:'Gewicht (kg)',data:active.map(d=>d.wG),backgroundColor:ACCENT+'55',borderRadius:4,yAxisID:'y2',barPercentage:0.4},
+    ]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.6,
+      plugins:{legend:{labels:{color:'#7a9ab0',font:{size:11}}},tooltip:{callbacks:{label:ctx=>{
+        const d=active[ctx.dataIndex];
+        return ctx.datasetIndex===0?' '+d.anzahl+' Stück · '+d.wE+' kg/Stk.'  :' '+d.wG+' kg';
+      }}}},
+      scales:{
+        x:{ticks:{color:'#7a9ab0',font:{size:10}},grid:{display:false}},
+        y:{ticks:{color:'#7a9ab0',font:{size:10}},grid:{color:'rgba(255,255,255,.06)'},title:{display:true,text:'Anzahl',color:'#506070',font:{size:10}}},
+        y2:{position:'right',ticks:{color:ACCENT+'99',font:{size:10}},grid:{display:false},title:{display:true,text:'kg',color:ACCENT+'80',font:{size:10}}},
+      }}});
+  }else{
+    const vals=active.map(d=>metric==='anzahl'?d.anzahl:d.wG);
+    const tot=vals.reduce((a,b)=>a+b,0);
+    myChart=new Chart(canvas,{type:'pie',data:{labels,datasets:[{data:vals,backgroundColor:bg,borderWidth:2,borderColor:'#0d2137',hoverOffset:8}]},
+      options:{responsive:true,maintainAspectRatio:true,aspectRatio:1.4,
+        plugins:{legend:{position:'bottom',labels:{color:'#a0b8c8',font:{size:11},padding:12}},
+          tooltip:{callbacks:{label:ctx=>{const pct=Math.round(ctx.parsed/tot*100);
+            return metric==='anzahl'?' '+active[ctx.dataIndex].anzahl+' Stück · '+pct+'%':' '+active[ctx.dataIndex].wG+' kg · '+pct+'%';
+          }}}}}});
+  }
+}
+
+function setTab(v){tab=v;render();}
+function setChart(v){chartT=v;render();}
+function setMetric(v){metric=v;render();}
+function toggleList(){listOpen=!listOpen;document.getElementById('list-wrap').style.display=listOpen?'flex':'none';render();}
+
+// Start
+laden();
+</script>
+</body>
+</html>
