@@ -123,7 +123,7 @@ Extrahiere alle Zeilen mit Einträgen. Regeln:
 - Zahl in Wandstärke → Türfutter (Zahl=Futtertiefe mm, Breite=Türmaß der Zeile). Zeile hat BEIDES → sowohl Türblatt als auch Türfutter anlegen.
 - LA in Sonstiges → la:1 für diese Zeile (Lichtausschnitt, +7.6kg bei 860mm, +5.8kg bei 735mm)
 - Kopfzeile Straße + Etage als quelle
-Antworte NUR mit JSON ohne Backticks:
+You MUST respond with ONLY a JSON object, no explanation, no text before or after, no markdown:
 {"quelle":"...","blaetter":[{"maß":"860 mm","breite":86.0,"anzahl":1,"la":0,"räume":["Raum"]}],"futter":[{"maß":"860/160","breite":86.0,"tiefe":16.0,"anzahl":1,"räume":["Raum"]}]}`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
